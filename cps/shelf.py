@@ -124,8 +124,8 @@ def search_to_shelf(shelf_id):
         return redirect(url_for('web.index'))
 
     if not check_shelf_edit_permissions(shelf):
-        log.warning("You are not allowed to add a book to the the shelf: {}".format(shelf.name))
-        flash(_(u"You are not allowed to add a book to the the shelf: %(name)s", name=shelf.name), category="error")
+        log.warning("You are not allowed to add a book to the the shelf")
+        flash(_(u"You are not allowed to add a book to the that shelf"), category="error")
         return redirect(url_for('web.index'))
 
     if current_user.id in ub.searched_ids and ub.searched_ids[current_user.id]:
@@ -216,11 +216,11 @@ def remove_from_shelf(shelf_id, book_id):
         return "", 204
     else:
         if not xhr:
-            log.warning("You are not allowed to remove a book from shelf: {}".format(shelf.name))
-            flash(_(u"Sorry you are not allowed to remove a book from this shelf: %(sname)s", sname=shelf.name),
+            log.warning("You are not allowed to remove a book from shelf")
+            flash(_(u"Sorry you are not allowed to remove a book from this shelf"),
                   category="error")
             return redirect(url_for('web.index'))
-        return "Sorry you are not allowed to remove a book from this shelf: %s" % shelf.name, 403
+        return "Sorry you are not allowed to remove a book from this shelf", 403
 
 
 @shelf.route("/shelf/create", methods=["GET", "POST"])
